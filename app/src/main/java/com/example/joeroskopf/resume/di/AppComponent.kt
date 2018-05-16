@@ -1,6 +1,7 @@
 package com.example.joeroskopf.resume.di
 
 import android.app.Application
+import android.net.Network
 import com.example.joeroskopf.resume.ResumeApplication
 import dagger.BindsInstance
 import dagger.Component
@@ -12,6 +13,7 @@ import javax.inject.Singleton
 @Component(modules = [
     AndroidSupportInjectionModule::class,
     AppModule::class,
+    NetworkModule::class,
     BuildersModule::class
 ])
 interface AppComponent {

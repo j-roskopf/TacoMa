@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,14 +12,18 @@ import android.widget.Button
 import androidx.navigation.Navigation
 import com.example.joeroskopf.resume.CommonHelloService
 import com.example.joeroskopf.resume.R
+import com.example.joeroskopf.resume.network.TacoService
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.main_fragment.*
+import kotlinx.coroutines.experimental.async
 import javax.inject.Inject
 
 class MainFragment : Fragment() {
 
     @Inject
     lateinit var commonHelloService: CommonHelloService
+
+    @Inject lateinit var tacoService: TacoService
 
     companion object {
         fun newInstance() = MainFragment()
@@ -47,6 +52,15 @@ class MainFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         // TODO: Use the ViewModel
         message.text = commonHelloService.sayHello()
+
+
+        async {
+            tacoService.getRandomRaco().subscribe({
+                Log.d("D","tacoDebug - all good! ${it.shell}")
+            }, {
+                Log.d("D","tacoDebug - all bad ${it.localizedMessage}")
+            })
+        }
     }
 
 }
