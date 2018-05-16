@@ -9,5 +9,5 @@ import java.util.*
 
 interface TacoService {
     @GET("random")
-    fun getRandomRaco(): Observable<TacoResponse>
+    fun getRandomTaco(): Observable<TacoResponse>
 }

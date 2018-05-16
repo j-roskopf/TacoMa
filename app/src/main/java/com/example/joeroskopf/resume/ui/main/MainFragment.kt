@@ -50,15 +50,13 @@ class MainFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        // TODO: Use the ViewModel
         message.text = commonHelloService.sayHello()
 
-
         async {
-            tacoService.getRandomRaco().subscribe({
-                Log.d("D","tacoDebug - all good! ${it.shell}")
+            tacoService.getRandomTaco().subscribe({ taco ->
+                Log.d("D","tacoService - a good thing happened! ${taco.shell}")
             }, {
-                Log.d("D","tacoDebug - all bad ${it.localizedMessage}")
+                Log.d("D","tacoService - a bad thing happened ${it.localizedMessage}")
             })
         }
     }
