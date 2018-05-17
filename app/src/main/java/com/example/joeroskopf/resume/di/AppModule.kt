@@ -1,10 +1,13 @@
 package com.example.joeroskopf.resume.di
 
 import android.app.Application
+import android.arch.persistence.room.Room
 import android.content.Context
 import com.example.joeroskopf.resume.BuildConfig
 import com.example.joeroskopf.resume.CommonHelloService
 import com.example.joeroskopf.resume.ResumeApplication
+import com.example.joeroskopf.resume.db.AppDatabase
+import com.example.joeroskopf.resume.db.TacoDao
 import com.example.joeroskopf.resume.network.TacoService
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -34,9 +37,15 @@ class AppModule {
         return application.applicationContext
     }
 
-    @Singleton
     @Provides
-    internal fun provideCommonHelloService(): CommonHelloService {
-        return CommonHelloService()
+    @Singleton
+    fun provideTacoDao(appDatabase: AppDatabase): TacoDao = appDatabase.tacoDao()
+
+    @Provides
+    @Singleton
+    fun provideAppDatabase(app: Application): AppDatabase {
+        return Room.databaseBuilder(app, AppDatabase::class.java, "TACO_DATABASE")
+                .fallbackToDestructiveMigration()
+                .build()
     }
 }
