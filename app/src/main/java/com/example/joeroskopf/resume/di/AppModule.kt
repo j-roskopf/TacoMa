@@ -2,6 +2,7 @@ package com.example.joeroskopf.resume.di
 
 import android.app.Application
 import android.arch.persistence.room.Room
+import android.arch.persistence.room.RoomDatabase
 import android.content.Context
 import com.example.joeroskopf.resume.BuildConfig
 import com.example.joeroskopf.resume.CommonHelloService
@@ -46,6 +47,7 @@ class AppModule {
     fun provideAppDatabase(app: Application): AppDatabase {
         return Room.databaseBuilder(app, AppDatabase::class.java, "TACO_DATABASE")
                 .fallbackToDestructiveMigration()
+                .setJournalMode(RoomDatabase.JournalMode.TRUNCATE)
                 .build()
     }
 }

@@ -1,36 +1,30 @@
 package com.example.joeroskopf.resume.ui.main
 
+import android.annotation.SuppressLint
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import com.example.joeroskopf.resume.CommonHelloService
 import com.example.joeroskopf.resume.model.network.TacoResponse
 import com.example.joeroskopf.resume.network.TacoService
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.main_fragment.*
 import javax.inject.Inject
-import android.text.SpannableStringBuilder
 import com.example.joeroskopf.resume.R
-import com.example.joeroskopf.resume.android.extensions.bold
-import android.widget.TextView
-import android.text.Spannable
-import android.graphics.Typeface
-import android.text.style.StyleSpan
-import android.text.SpannableString
-import android.util.Log
+import android.support.design.widget.Snackbar
 import android.view.*
-import android.view.ViewTreeObserver.OnScrollChangedListener
-import android.widget.Toast
 import com.example.joeroskopf.resume.db.TacoRepository
+import kotlinx.coroutines.experimental.async
 
 
 class MainFragment : Fragment() {
 
-    @Inject lateinit var tacoService: TacoService
-    @Inject lateinit var tacoRepository: TacoRepository
+    @Inject
+    lateinit var tacoService: TacoService
+    @Inject
+    lateinit var tacoRepository: TacoRepository
 
     private lateinit var viewModel: MainViewModel
 
@@ -49,12 +43,35 @@ class MainFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId) {
+        when (item?.itemId) {
             R.id.action_menu_save_button -> {
-                viewModel.saveTacoLocally()
+                async {
+                    saveTaco()
+                }
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    @SuppressLint("CheckResult")
+    private suspend fun saveTaco() {
+        viewModel.saveTacoLocally().subscribe({
+            this.tacoSavedSuccessfully(it)
+        }, {
+            this.tacoSaveOnError(it)
+        })
+    }
+
+    private fun tacoSavedSuccessfully(success: Boolean) {
+        if (success) {
+            Snackbar.make(mainFragmentBaseLayout, "Taco saved successfully!", Snackbar.LENGTH_SHORT).show()
+        } else {
+            Snackbar.make(mainFragmentBaseLayout, "Removed taco!", Snackbar.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun tacoSaveOnError(throwable: Throwable) {
+        Snackbar.make(mainFragmentBaseLayout, throwable.localizedMessage, Snackbar.LENGTH_SHORT).show()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -106,7 +123,7 @@ class MainFragment : Fragment() {
      */
     private fun fetchTaco() {
         viewModel.getTacoResponse().observe(activity as LifecycleOwner, Observer<TacoResponse> {
-            if(it == null) {
+            if (it == null) {
                 //TODO display error snackbar
             } else {
                 showDisplayLayout()

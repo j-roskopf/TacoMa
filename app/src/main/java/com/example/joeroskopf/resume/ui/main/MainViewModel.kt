@@ -16,6 +16,11 @@ import android.os.Build
 import android.text.Html.fromHtml
 import android.text.Spanned
 import com.example.joeroskopf.resume.db.TacoRepository
+import io.reactivex.Maybe
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.experimental.rx2.await
 
 
 class MainViewModel(private val tacoService: TacoService, private val tacoRepository: TacoRepository) : ViewModel() {
@@ -76,16 +81,37 @@ class MainViewModel(private val tacoService: TacoService, private val tacoReposi
     /**
      * Saves the last loaded taco into our local DB
      */
-    fun saveTacoLocally() {
+    suspend fun saveTacoLocally(): Maybe<Boolean> {
         tacoResponse?.value?.let {
-            writeTacoToDatabase(it)
+            val tacoEntity = tacoRepository.checkIfTacoExists(it.toTacoEntity().id).await()
+
+            Log.d("D","tacoDebug - got tacoEntity back " + (tacoEntity == null) + " " + tacoEntity?.base_layer_name)
+
+            return if (tacoEntity == null) {
+                //it doesn't exist! insert it
+                Maybe.create { emitter ->
+                    Log.d("D","tacoDebug - favoriting taco!")
+                    tacoRepository.saveTacoToDatabase(it).subscribe({
+                        emitter.onSuccess(true)
+                    }, {
+                        emitter.onError(it)
+                    })
+                }
+
+            } else {
+                Maybe.create { emitter ->
+                    Log.d("D","tacoDebug - unfavoriting taco!")
+                    //it does exist, unfavorite it
+                    tacoRepository.deleteTaco(it.toTacoEntity())
+                    emitter.onSuccess(false)
+                }
+            }
+
+        }
+
+        return Maybe.create {
+            it.onError(RuntimeException("No Taco Response To Save"))
         }
     }
 
-    private fun writeTacoToDatabase(tacoResponse: TacoResponse) {
-        async {
-            val id = tacoRepository.saveTacoToDatabase(tacoResponse)
-            Log.d("D","tacoDebug - inserting with id = $id")
-        }
-    }
 }

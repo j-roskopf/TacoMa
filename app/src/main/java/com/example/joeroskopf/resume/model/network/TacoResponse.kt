@@ -1,5 +1,6 @@
 package com.example.joeroskopf.resume.model.network
 
+import android.util.Log
 import com.example.joeroskopf.resume.db.TacoEntity
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
@@ -16,7 +17,9 @@ data class TacoResponse(@SerializedName("shell")
                         var condiment: Condiment? = null) {
 
     fun toTacoEntity(): TacoEntity {
+        //id is concat of shell_slug_seasoning_slug_mixinx_slug_base_layer_slug_condiment_slug
         return TacoEntity(
+                id = "${shell?.slug}_${seasoning?.slug}_${mixin?.slug}_${baseLayer?.slug}_${condiment?.slug}",
                 shell_name = shell?.name,
                 shell_recipe = shell?.recipe,
                 shell_slug = shell?.slug,

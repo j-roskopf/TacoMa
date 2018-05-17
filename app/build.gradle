@@ -16,13 +16,13 @@ android {
     buildTypes {
 
         debug {
+            debuggable true
             buildConfigField "String", "TACO_API_URL", '"http://taco-randomizer.herokuapp.com"'
         }
 
         release {
             buildConfigField "String", "TACO_API_URL", '"http://taco-randomizer.herokuapp.com"'
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 }
@@ -73,7 +73,12 @@ dependencies {
     implementation "com.google.code.gson:gson:$gsonVersion"
 
     def rxJavaVersion = "2.1.14-RC1"
+    def rxAndroidVersion = "2.0.1"
+    def rxKotlinVersion = "2.2.0"
+
     implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+    implementation "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion"
 
     def coroutinesVersion = "0.22.5"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
@@ -88,7 +93,7 @@ dependencies {
     kapt "android.arch.persistence.room:compiler:$roomVersion"
     testImplementation "android.arch.persistence.room:testing:$roomVersion"
 
-
-
-
+    def stethoVersion = "1.5.0"
+    debugImplementation "com.facebook.stetho:stetho:$stethoVersion"
+    implementation "com.facebook.stetho:stetho-okhttp3:$stethoVersion"
 }

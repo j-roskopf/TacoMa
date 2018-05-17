@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "taco_favorites")
 data class TacoEntity(
-        @PrimaryKey(autoGenerate = true) var id: Long = 0,
+        @PrimaryKey @SerializedName("id") var id: String = "",
         @SerializedName("shell_name")
         var shell_name: String? = null,
         @SerializedName("shell_slug")
