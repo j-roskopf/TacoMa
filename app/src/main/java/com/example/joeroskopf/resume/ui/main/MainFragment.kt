@@ -23,6 +23,8 @@ import ru.noties.markwon.Markwon
 import ru.noties.markwon.SpannableConfiguration
 import javax.inject.Inject
 
+
+
 class MainFragment : Fragment() {
 
     @Inject
@@ -69,12 +71,7 @@ class MainFragment : Fragment() {
 
         //set on click for the fab refresh button
         mainFragmentRefreshFab.setOnClickListener {
-            //set view state
-            hideDisplayLayout()
-            //invalidate local data
-            viewModel.invalidateLocalData()
-            //fetch taco from API
-            fetchTaco()
+            invalidateAndRefresh()
         }
     }
 
@@ -84,6 +81,7 @@ class MainFragment : Fragment() {
     private fun showDisplayLayout() {
         mainFragmentTacoDisplayContainer.visibility = View.VISIBLE
         mainFragmentProgressBar.visibility = View.GONE
+        mainFragmentErrorLayout.visibility = View.GONE
     }
 
     /**
@@ -92,6 +90,16 @@ class MainFragment : Fragment() {
     private fun hideDisplayLayout() {
         mainFragmentTacoDisplayContainer.visibility = View.GONE
         mainFragmentProgressBar.visibility = View.VISIBLE
+        mainFragmentErrorLayout.visibility = View.GONE
+    }
+
+    /**
+     * Show the [View] elements that should be visible when the API returns from an error
+     */
+    private fun showErrorLayout() {
+        mainFragmentTacoDisplayContainer.visibility = View.GONE
+        mainFragmentProgressBar.visibility = View.GONE
+        mainFragmentErrorLayout.visibility = View.VISIBLE
     }
 
     /**
@@ -100,13 +108,31 @@ class MainFragment : Fragment() {
     private fun fetchTaco() {
         viewModel.getTacoResponse().observe(activity as LifecycleOwner, Observer<TacoResponse> {
             if (it == null) {
-                Snackbar.make(mainFragmentBaseLayout, getString(R.string.taco_error), Snackbar.LENGTH_SHORT).show()
+                val snackbar = Snackbar.make(activity!!.findViewById(R.id.bottom_navigation),
+                        R.string.taco_error, Snackbar.LENGTH_LONG)
+                snackbar.setAction(R.string.retry_string, {
+                    invalidateAndRefresh()
+                })
+                snackbar.show()
+                showErrorLayout()
                 Log.e("MainFragment","an error occurred while observing the taco")
             } else {
                 showDisplayLayout()
             }
             displayResults(it)
         })
+    }
+
+    /**
+     * Invalidate our local data and fetch a taco
+     */
+    private fun invalidateAndRefresh() {
+        //set view state
+        hideDisplayLayout()
+        //invalidate local data
+        viewModel.invalidateLocalData()
+        //fetch taco from API
+        fetchTaco()
     }
 
     /**
@@ -153,9 +179,9 @@ class MainFragment : Fragment() {
      */
     private fun tacoSavedSuccessfully(saved: Boolean) {
         if (saved) {
-            Snackbar.make(mainFragmentBaseLayout, getString(R.string.taco_saved_success), Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(activity!!.findViewById(R.id.bottom_navigation), getString(R.string.taco_saved_success), Snackbar.LENGTH_SHORT).show()
         } else {
-            Snackbar.make(mainFragmentBaseLayout, getString(R.string.taco_removed_success), Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(activity!!.findViewById(R.id.bottom_navigation), getString(R.string.taco_removed_success), Snackbar.LENGTH_SHORT).show()
         }
     }
 
@@ -163,6 +189,6 @@ class MainFragment : Fragment() {
      * If Saving / Deleting a [TacoResponse] did not go well, we will alert the user
      */
     private fun tacoSaveOnError(throwable: Throwable) {
-        Snackbar.make(mainFragmentBaseLayout, throwable.localizedMessage, Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(activity!!.findViewById(R.id.bottom_navigation), throwable.localizedMessage, Snackbar.LENGTH_SHORT).show()
     }
 }

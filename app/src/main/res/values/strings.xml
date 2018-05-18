@@ -8,4 +8,6 @@
     <string name="taco_saved_success">Taco saved successfully!</string>
     <string name="taco_removed_success">Removed taco!</string>
     <string name="taco_error">An error occurred while fetching a taco!</string>
+    <string name="an_error_occurred">An error occurred!</string>
+    <string name="retry_string">Retry</string>
 </resources>

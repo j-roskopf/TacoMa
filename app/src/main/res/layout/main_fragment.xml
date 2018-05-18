@@ -7,6 +7,11 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.MainFragment">
 
+    <include
+        android:id="@+id/mainFragmentErrorLayout"
+        layout="@layout/error_layout"
+        android:visibility="gone" />
+
     <ScrollView
         android:id="@+id/mainFragmentScrollContainer"
         android:layout_width="match_parent"
@@ -46,7 +51,7 @@
                     app:fontFamily="serif-monospace"
                     tools:text="Overly Seasoned Ground Beef with Cheese (Traditional; US), garnished with Chipotlé Sauce topped off with Sriracha Salt and wrapped in delicious naan" />
 
-                <include layout="@layout/spacer"/>
+                <include layout="@layout/spacer" />
 
                 <TextView
                     android:id="@+id/mainFragmentBaseLayerText"
@@ -54,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp" />
 
-                <include layout="@layout/spacer"/>
+                <include layout="@layout/spacer" />
 
                 <TextView
                     android:id="@+id/mainFragmentMixinText"
@@ -62,7 +67,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp" />
 
-                <include layout="@layout/spacer"/>
+                <include layout="@layout/spacer" />
 
                 <TextView
                     android:id="@+id/mainFragmentCondimentText"
@@ -70,7 +75,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp" />
 
-                <include layout="@layout/spacer"/>
+                <include layout="@layout/spacer" />
 
                 <TextView
                     android:id="@+id/mainFragmentSeasoningText"
@@ -78,7 +83,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp" />
 
-                <include layout="@layout/spacer"/>
+                <include layout="@layout/spacer" />
 
                 <TextView
                     android:id="@+id/mainFragmentShellText"
@@ -99,7 +104,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
-        app:srcCompat="@drawable/ic_refresh_white_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_refresh_white_24dp" />
 </android.support.constraint.ConstraintLayout>
