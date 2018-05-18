@@ -6,7 +6,6 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.NonNull
 import android.support.v4.app.Fragment
 import com.example.joeroskopf.resume.model.network.TacoResponse
 import com.example.joeroskopf.resume.network.TacoService
@@ -16,16 +15,12 @@ import javax.inject.Inject
 import com.example.joeroskopf.resume.R
 import android.support.design.widget.Snackbar
 import android.text.method.LinkMovementMethod
-import android.util.Log
 import android.view.*
 import com.example.joeroskopf.resume.db.TacoRepository
 import kotlinx.coroutines.experimental.async
 import org.jetbrains.anko.browse
 import ru.noties.markwon.Markwon
-import ru.noties.markwon.renderer.SpannableRenderer
 import ru.noties.markwon.SpannableConfiguration
-import ru.noties.markwon.spans.LinkSpan
-
 
 class MainFragment : Fragment() {
 

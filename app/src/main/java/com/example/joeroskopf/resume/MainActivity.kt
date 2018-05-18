@@ -2,12 +2,7 @@ package com.example.joeroskopf.resume
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
 import androidx.navigation.Navigation
-import androidx.navigation.Navigation.findNavController
-import com.example.joeroskopf.resume.R.id.bottom_navigation
-import com.example.joeroskopf.resume.ui.main.MainFragment
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.main_activity.*
 

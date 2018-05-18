@@ -3,23 +3,14 @@ package com.example.joeroskopf.resume.ui.main
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import android.text.Html
-import android.text.Spannable
-import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.util.Log
 import com.example.joeroskopf.resume.android.extensions.bold
 import com.example.joeroskopf.resume.model.network.TacoResponse
 import com.example.joeroskopf.resume.network.TacoService
 import kotlinx.coroutines.experimental.async
-import android.os.Build
-import android.text.Html.fromHtml
-import android.text.Spanned
 import com.example.joeroskopf.resume.db.TacoRepository
 import io.reactivex.Maybe
-import io.reactivex.Scheduler
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.experimental.rx2.await
 
 

@@ -1,9 +1,7 @@
 package com.example.joeroskopf.resume.model.network
 
 import android.os.Parcelable
-import android.util.Log
 import com.example.joeroskopf.resume.db.TacoEntity
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 

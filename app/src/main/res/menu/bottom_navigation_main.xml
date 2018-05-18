@@ -5,13 +5,13 @@
         android:id="@+id/action_taco"
         android:enabled="true"
         android:icon="@drawable/taco"
-        android:title="Tacos"
+        android:title="@string/tacos"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_favorites"
         android:enabled="true"
         android:icon="@drawable/ic_favorite_white_24dp"
-        android:title="Favorites"
+        android:title="@string/favorites"
         app:showAsAction="ifRoom" />
 </menu>

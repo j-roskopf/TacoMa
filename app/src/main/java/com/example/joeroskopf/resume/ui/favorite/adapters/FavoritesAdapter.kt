@@ -1,6 +1,7 @@
 package com.example.joeroskopf.resume.ui.favorite.adapters
 
 import android.content.Context
+import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -43,5 +44,5 @@ class FavoritesAdapter(private val onItemClickListener: OnItemClickListener, pri
 class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     val tacoHeaderText = view.tacoRowItemText as TextView
     val tacoHeaderCloseButton = view.tacoRowItemCloseButton as ImageView
-    val tacoRowItemBaseLayout = view.tacoRowItemBaseLayout
+    val tacoRowItemBaseLayout = view.tacoRowItemBaseLayout as ConstraintLayout
 }

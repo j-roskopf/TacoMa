@@ -1,6 +1,5 @@
 package com.example.joeroskopf.resume.db
 
-import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import com.example.joeroskopf.resume.model.network.*

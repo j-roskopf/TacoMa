@@ -2,4 +2,7 @@
     <string name="app_name">TacoMa</string>
     <string name="favorite">Favorite</string>
     <string name="no_favorites">It appears you don\'t have any favorites! Try adding some!</string>
+    <string name="tacos">Tacos</string>
+    <string name="favorites">Favorites</string>
+    <string name="taco_row_item_close_button">Taco Row Item Close Button</string>
 </resources>

@@ -5,7 +5,6 @@ import android.app.Application
 import android.support.v4.app.Fragment
 import com.example.joeroskopf.resume.di.DaggerAppComponent
 import com.facebook.stetho.Stetho
-import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import javax.inject.Inject

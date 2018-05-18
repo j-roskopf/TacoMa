@@ -1,22 +1,17 @@
 package com.example.joeroskopf.resume.db
 
 import android.arch.lifecycle.LiveData
-import android.database.DatabaseErrorHandler
-import android.util.Log
 import com.example.joeroskopf.resume.model.network.TacoResponse
 import io.reactivex.Maybe
-import io.reactivex.Observable
-import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import java.util.logging.Logger
 import javax.inject.Inject
 import javax.inject.Singleton
 
 
 @Singleton
 class TacoRepository @Inject
-constructor(private val tacoDao: TacoDao, private val appDatabase: AppDatabase) {
+constructor(private val tacoDao: TacoDao) {
 
     /**
      * Saves the [TacoResponse] to local database
