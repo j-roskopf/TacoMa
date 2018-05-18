@@ -26,6 +26,10 @@ android {
             minifyEnabled false
         }
     }
+
+    androidExtensions {
+        experimental = true
+    }
 }
 
 kotlin {
@@ -100,6 +104,6 @@ dependencies {
     debugImplementation "com.facebook.stetho:stetho:$stethoVersion"
     implementation "com.facebook.stetho:stetho-okhttp3:$stethoVersion"
 
-    def anko_version='0.10.5'
+    def anko_version = '0.10.5'
     implementation "org.jetbrains.anko:anko-commons:$anko_version"
 }

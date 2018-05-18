@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">TacoMa</string>
     <string name="favorite">Favorite</string>
+    <string name="no_favorites">It appears you don\'t have any favorites! Try adding some!</string>
 </resources>

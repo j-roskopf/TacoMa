@@ -1,10 +1,13 @@
 package com.example.joeroskopf.resume.model.network
 
+import android.os.Parcelable
 import android.util.Log
 import com.example.joeroskopf.resume.db.TacoEntity
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class TacoResponse(@SerializedName("shell")
                         var shell: Shell? = null,
                         @SerializedName("seasoning")
@@ -14,7 +17,7 @@ data class TacoResponse(@SerializedName("shell")
                         @SerializedName("base_layer")
                         var baseLayer: BaseLayer? = null,
                         @SerializedName("condiment")
-                        var condiment: Condiment? = null) {
+                        var condiment: Condiment? = null): Parcelable {
 
     fun toTacoEntity(): TacoEntity {
         //id is concat of shell_slug_seasoning_slug_mixinx_slug_base_layer_slug_condiment_slug

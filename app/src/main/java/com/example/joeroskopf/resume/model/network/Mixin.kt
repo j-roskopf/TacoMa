@@ -1,9 +1,12 @@
 package com.example.joeroskopf.resume.model.network
 
+import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 
+@Parcelize
 data class Mixin(@SerializedName("name")
                  var name: String? = null,
                  @SerializedName("slug")
@@ -11,4 +14,4 @@ data class Mixin(@SerializedName("name")
                  @SerializedName("recipe")
                  var recipe: String? = null,
                  @SerializedName("url")
-                 var url: String? = null)
+                 var url: String? = null) : Parcelable

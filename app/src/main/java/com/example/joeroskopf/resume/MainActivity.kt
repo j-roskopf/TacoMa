@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun displayFavoritesFragment() {
-
         Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.action_mainFragment2_to_favoritesFragment)
     }
 

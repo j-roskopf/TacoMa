@@ -9,13 +9,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.joeroskopf.resume.R
 import com.example.joeroskopf.resume.db.TacoEntity
+import com.example.joeroskopf.resume.model.network.TacoResponse
 import com.example.joeroskopf.resume.ui.main.MainViewModel
 import kotlinx.android.synthetic.main.favorite_row_item.view.*
 
 class FavoritesAdapter(private val onItemClickListener: OnItemClickListener, private val tacos: List<TacoEntity>, val context: Context) : RecyclerView.Adapter<ViewHolder>() {
 
     interface OnItemClickListener {
-        fun onItemClick(tacoEntity: TacoEntity)
+        fun onItemClick(tacoResponse: TacoResponse)
         fun onItemCloseClicked(tacoEntity: TacoEntity)
     }
 
@@ -29,7 +30,7 @@ class FavoritesAdapter(private val onItemClickListener: OnItemClickListener, pri
             onItemClickListener.onItemCloseClicked(tacos[position])
         }
         holder.tacoRowItemBaseLayout.setOnClickListener {
-            onItemClickListener.onItemClick(tacos[position])
+            onItemClickListener.onItemClick(tacos[position].toTacoResponse())
         }
     }
 

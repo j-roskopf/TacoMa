@@ -124,19 +124,16 @@ class MainFragment : Fragment() {
                     }
                     .build()
 
-            Markwon.setMarkdown(mainFragmentBaseLayerText, configuration, it.baseLayer?.recipe
-                    ?: "")
+            Markwon.setMarkdown(mainFragmentBaseLayerText, configuration, it.baseLayer?.recipe ?: "")
             mainFragmentBaseLayerText.movementMethod = LinkMovementMethod.getInstance()
 
             Markwon.setMarkdown(mainFragmentMixinText, configuration, it.mixin?.recipe ?: "")
             mainFragmentMixinText.movementMethod = LinkMovementMethod.getInstance()
 
-            Markwon.setMarkdown(mainFragmentCondimentText, configuration, it.condiment?.recipe
-                    ?: "")
+            Markwon.setMarkdown(mainFragmentCondimentText, configuration, it.condiment?.recipe ?: "")
             mainFragmentCondimentText.movementMethod = LinkMovementMethod.getInstance()
 
-            Markwon.setMarkdown(mainFragmentSeasoningText, configuration, it.seasoning?.recipe
-                    ?: "")
+            Markwon.setMarkdown(mainFragmentSeasoningText, configuration, it.seasoning?.recipe ?: "")
             mainFragmentSeasoningText.movementMethod = LinkMovementMethod.getInstance()
 
             Markwon.setMarkdown(mainFragmentShellText, configuration, it.shell?.recipe ?: "")

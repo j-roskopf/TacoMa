@@ -6,23 +6,22 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 
 import com.example.joeroskopf.resume.R
 import com.example.joeroskopf.resume.db.TacoEntity
 import com.example.joeroskopf.resume.db.TacoRepository
 import com.example.joeroskopf.resume.model.network.TacoResponse
+import com.example.joeroskopf.resume.ui.detail.DetailActivity
 import com.example.joeroskopf.resume.ui.favorite.adapters.FavoritesAdapter
-import com.example.joeroskopf.resume.ui.main.MainViewModel
-import com.example.joeroskopf.resume.ui.main.MainViewModelFactory
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.favorites_fragment.*
 import kotlinx.coroutines.experimental.async
+import org.jetbrains.anko.bundleOf
 import javax.inject.Inject
 
 class FavoritesFragment : Fragment() {
@@ -47,8 +46,33 @@ class FavoritesFragment : Fragment() {
         viewModel = ViewModelProviders.of(activity!!, FavoriteViewModelFactory(tacoRepository)).get(FavoritesViewModel::class.java)
 
         viewModel.fetchAllTacos().observe(activity as LifecycleOwner, Observer<List<TacoEntity>> {
-            setupList(it)
+            if (it?.size ?: 0 > 0) {
+                showLayout()
+                setupList(it)
+            } else {
+                hideLayout()
+            }
         })
+    }
+
+    /**
+     * Show the RV layout when we have valid tacos to display
+     */
+    private fun showLayout() {
+        if (include_favorites != null && favoritesFragmentRecyclerView != null) {
+            include_favorites.visibility = View.GONE
+            favoritesFragmentRecyclerView.visibility = View.VISIBLE
+        }
+    }
+
+    /**
+     * Hide the RV layout when we have nothing to display. Instead showing a message to the user
+     */
+    private fun hideLayout() {
+        if (include_favorites != null && favoritesFragmentRecyclerView != null) {
+            include_favorites.visibility = View.VISIBLE
+            favoritesFragmentRecyclerView.visibility = View.GONE
+        }
     }
 
     /**
@@ -64,7 +88,9 @@ class FavoritesFragment : Fragment() {
                 // Access the RecyclerView Adapter and load the data into it
                 favoritesFragmentRecyclerView.adapter = FavoritesAdapter(
                         object : FavoritesAdapter.OnItemClickListener {
-                            override fun onItemClick(tacoEntity: TacoEntity) {
+                            override fun onItemClick(tacoResponse: TacoResponse) {
+                                val bundle = bundleOf(DetailActivity.ARGUMENT_DETAIL_FRAGMENT_TACO to tacoResponse)
+                                Navigation.findNavController(activity!!, R.id.nav_host_fragment).navigate(R.id.action_favoritesFragment_to_detailActivity, bundle)
                             }
 
                             override fun onItemCloseClicked(tacoEntity: TacoEntity) {
@@ -79,5 +105,4 @@ class FavoritesFragment : Fragment() {
             }
         }
     }
-
 }

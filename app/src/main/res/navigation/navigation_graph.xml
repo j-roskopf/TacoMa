@@ -35,5 +35,15 @@
         <action
             android:id="@+id/action_favoritesFragment_self"
             app:destination="@id/favoritesFragment" />
+        <action
+            android:id="@+id/action_favoritesFragment_to_detailActivity"
+            app:destination="@id/detailActivity" />
     </fragment>
+    <activity
+        android:id="@+id/detailActivity"
+        android:name="com.example.joeroskopf.resume.ui.detail.DetailActivity"
+        android:label="activity_detail"
+        tools:layout="@layout/activity_detail">
+        <argument android:name="taco"/>
+    </activity>
 </navigation>
