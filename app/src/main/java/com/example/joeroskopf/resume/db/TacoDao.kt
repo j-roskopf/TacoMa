@@ -1,12 +1,13 @@
 package com.example.joeroskopf.resume.db
 
+import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
 import io.reactivex.Maybe
 
 @Dao
 interface TacoDao {
     @Query("SELECT * FROM taco_favorites")
-    fun selectAll(): Maybe<List<TacoEntity>>
+    fun selectAll(): LiveData<List<TacoEntity>>
 
     @Query("SELECT * FROM taco_favorites WHERE id like :id")
     fun selectTaco(id: String): Maybe<TacoEntity?>

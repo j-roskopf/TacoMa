@@ -2,24 +2,38 @@
 <navigation xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/mainFragment2">
 
     <fragment
-        android:id="@+id/mainFragment"
+        android:id="@+id/mainFragment2"
         android:name="com.example.joeroskopf.resume.ui.main.MainFragment"
         android:label="main_fragment"
         tools:layout="@layout/main_fragment" >
         <action
-            android:id="@+id/action_mainFragment_to_detailFragment"
-            app:destination="@id/detailFragment"
+            android:id="@+id/action_mainFragment2_to_favoritesFragment"
+            app:destination="@id/favoritesFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_enter_anim"
-            app:popEnterAnim="@anim/nav_default_enter_anim"
-            app:popExitAnim="@anim/nav_default_enter_anim" />
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_mainFragment2_self"
+            app:destination="@id/mainFragment2" />
     </fragment>
     <fragment
-        android:id="@+id/detailFragment"
-        android:name="com.example.joeroskopf.resume.ui.main.DetailFragment"
-        android:label="detail_fragment"
-        tools:layout="@layout/detail_fragment" />
+        android:id="@+id/favoritesFragment"
+        android:name="com.example.joeroskopf.resume.ui.favorite.FavoritesFragment"
+        android:label="favorites_fragment"
+        tools:layout="@layout/favorites_fragment" >
+        <action
+            android:id="@+id/action_favoritesFragment_to_mainFragment2"
+            app:destination="@id/mainFragment2"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_favoritesFragment_self"
+            app:destination="@id/favoritesFragment" />
+    </fragment>
 </navigation>

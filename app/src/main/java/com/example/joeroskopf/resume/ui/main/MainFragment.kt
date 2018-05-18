@@ -28,10 +28,6 @@ class MainFragment : Fragment() {
 
     private lateinit var viewModel: MainViewModel
 
-    companion object {
-        fun newInstance() = MainFragment()
-    }
-
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
@@ -53,37 +49,9 @@ class MainFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    @SuppressLint("CheckResult")
-    private suspend fun saveTaco() {
-        viewModel.saveTacoLocally().subscribe({
-            this.tacoSavedSuccessfully(it)
-        }, {
-            this.tacoSaveOnError(it)
-        })
-    }
-
-    private fun tacoSavedSuccessfully(success: Boolean) {
-        if (success) {
-            Snackbar.make(mainFragmentBaseLayout, "Taco saved successfully!", Snackbar.LENGTH_SHORT).show()
-        } else {
-            Snackbar.make(mainFragmentBaseLayout, "Removed taco!", Snackbar.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun tacoSaveOnError(throwable: Throwable) {
-        Snackbar.make(mainFragmentBaseLayout, throwable.localizedMessage, Snackbar.LENGTH_SHORT).show()
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-
-        val view = inflater.inflate(R.layout.main_fragment, container, false)
-
-/*        view.findViewById<Button>(R.id.button).setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_detailFragment)
-        }*/
-
-        return view
+        return inflater.inflate(R.layout.main_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -95,9 +63,13 @@ class MainFragment : Fragment() {
 
         fetchTaco()
 
+        //set on click for the fab refresh button
         mainFragmentRefreshFab.setOnClickListener {
+            //set view state
             hideDisplayLayout()
+            //invalidate local data
             viewModel.invalidateLocalData()
+            //fetch taco from API
             fetchTaco()
         }
     }
@@ -144,5 +116,33 @@ class MainFragment : Fragment() {
             mainFragmentSeasoningText.loadMarkdown(it.seasoning?.recipe)
             mainFragmentShellText.loadMarkdown(it.shell?.recipe)
         }
+    }
+
+    @SuppressLint("CheckResult")
+    private suspend fun saveTaco() {
+        viewModel.saveTacoLocally().subscribe({
+            this.tacoSavedSuccessfully(it)
+        }, {
+            this.tacoSaveOnError(it)
+        })
+    }
+
+    /**
+     * If the Saving / Deleting of a taco did go well, alert the user accordingly based on
+     * @param saved - if the taco was saved or deleted
+     */
+    private fun tacoSavedSuccessfully(saved: Boolean) {
+        if (saved) {
+            Snackbar.make(mainFragmentBaseLayout, "Taco saved successfully!", Snackbar.LENGTH_SHORT).show()
+        } else {
+            Snackbar.make(mainFragmentBaseLayout, "Removed taco!", Snackbar.LENGTH_SHORT).show()
+        }
+    }
+
+    /**
+     * If Saving / Deleting a [TacoResponse] did not go well, we will alert the user
+     */
+    private fun tacoSaveOnError(throwable: Throwable) {
+        Snackbar.make(mainFragmentBaseLayout, throwable.localizedMessage, Snackbar.LENGTH_SHORT).show()
     }
 }
