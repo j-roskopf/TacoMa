@@ -108,12 +108,10 @@ class MainFragment : Fragment() {
     private fun fetchTaco() {
         viewModel.getTacoResponse().observe(activity as LifecycleOwner, Observer<TacoResponse> {
             if (it == null) {
-                val snackbar = Snackbar.make(activity!!.findViewById(R.id.bottom_navigation),
-                        R.string.taco_error, Snackbar.LENGTH_LONG)
-                snackbar.setAction(R.string.retry_string, {
-                    invalidateAndRefresh()
-                })
-                snackbar.show()
+                Snackbar.make(mainFragmentBaseLayout, R.string.taco_error, Snackbar.LENGTH_LONG)
+                        .setAction(R.string.retry_string, {
+                            invalidateAndRefresh()
+                        }).show()
                 showErrorLayout()
                 Log.e("MainFragment","an error occurred while observing the taco")
             } else {
@@ -179,9 +177,9 @@ class MainFragment : Fragment() {
      */
     private fun tacoSavedSuccessfully(saved: Boolean) {
         if (saved) {
-            Snackbar.make(activity!!.findViewById(R.id.bottom_navigation), getString(R.string.taco_saved_success), Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(mainFragmentRefreshFab, getString(R.string.taco_saved_success), Snackbar.LENGTH_SHORT).show()
         } else {
-            Snackbar.make(activity!!.findViewById(R.id.bottom_navigation), getString(R.string.taco_removed_success), Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(mainFragmentRefreshFab, getString(R.string.taco_removed_success), Snackbar.LENGTH_SHORT).show()
         }
     }
 
@@ -189,6 +187,6 @@ class MainFragment : Fragment() {
      * If Saving / Deleting a [TacoResponse] did not go well, we will alert the user
      */
     private fun tacoSaveOnError(throwable: Throwable) {
-        Snackbar.make(activity!!.findViewById(R.id.bottom_navigation), throwable.localizedMessage, Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(mainFragmentBaseLayout, throwable.localizedMessage, Snackbar.LENGTH_SHORT).show()
     }
 }

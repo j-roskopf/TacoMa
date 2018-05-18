@@ -1,9 +1,8 @@
 package com.example.joeroskopf.resume.ui.detail
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.text.method.LinkMovementMethod
-import android.util.Log
 import android.view.MenuItem
 import com.example.joeroskopf.resume.R
 import com.example.joeroskopf.resume.model.network.TacoResponse
@@ -27,12 +26,8 @@ class DetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
         if(intent.extras.containsKey(DetailActivity.ARGUMENT_DETAIL_FRAGMENT_TACO)) {
-            Log.d("D","detailDebug - it did contain the key!")
-
             val tacoResponse = intent.extras[DetailActivity.ARGUMENT_DETAIL_FRAGMENT_TACO] as TacoResponse
             displayResults(tacoResponse)
-        } else {
-            Log.d("D","detailDebug - in did not contain the key")
         }
     }
 

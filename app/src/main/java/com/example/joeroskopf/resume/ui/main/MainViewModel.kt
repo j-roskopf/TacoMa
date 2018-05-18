@@ -6,11 +6,11 @@ import android.arch.lifecycle.ViewModel
 import android.text.SpannableStringBuilder
 import android.util.Log
 import com.example.joeroskopf.resume.android.extensions.bold
+import com.example.joeroskopf.resume.db.TacoRepository
 import com.example.joeroskopf.resume.model.network.TacoResponse
 import com.example.joeroskopf.resume.network.TacoService
-import kotlinx.coroutines.experimental.async
-import com.example.joeroskopf.resume.db.TacoRepository
 import io.reactivex.Maybe
+import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.rx2.await
 
 
@@ -77,12 +77,9 @@ class MainViewModel(private val tacoService: TacoService, private val tacoReposi
         tacoResponse?.value?.let {
             val tacoEntity = tacoRepository.checkIfTacoExists(it.toTacoEntity().id).await()
 
-            Log.d("D","tacoDebug - got tacoEntity back " + (tacoEntity == null) + " " + tacoEntity?.base_layer_name)
-
             return if (tacoEntity == null) {
                 //it doesn't exist! insert it
                 Maybe.create { emitter ->
-                    Log.d("D","tacoDebug - favoriting taco!")
                     tacoRepository.saveTacoToDatabase(it).subscribe({
                         emitter.onSuccess(true)
                     }, {
@@ -92,7 +89,6 @@ class MainViewModel(private val tacoService: TacoService, private val tacoReposi
 
             } else {
                 Maybe.create { emitter ->
-                    Log.d("D","tacoDebug - unfavoriting taco!")
                     //it does exist, unfavorite it
                     tacoRepository.deleteTaco(it.toTacoEntity())
                     emitter.onSuccess(false)
