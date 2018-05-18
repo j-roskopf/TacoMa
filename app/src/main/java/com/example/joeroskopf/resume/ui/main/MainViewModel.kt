@@ -25,6 +25,31 @@ import kotlinx.coroutines.experimental.rx2.await
 
 class MainViewModel(private val tacoService: TacoService, private val tacoRepository: TacoRepository) : ViewModel() {
 
+    companion object {
+        /**
+         * Given a [TacoResponse], returns a styled [SpannableStringBuilder]
+         *
+         * @param tacoResponse - response object from API
+         */
+        fun getHeadingFromTaco(tacoResponse: TacoResponse): SpannableStringBuilder {
+            val space = " "
+
+            return SpannableStringBuilder()
+                    .append(tacoResponse.baseLayer?.name).append(space)
+                    .bold {
+                        append("with").append(space)
+                    }.append(tacoResponse.mixin?.name).append(space)
+                    .bold {
+                        append("garnished with").append(space)
+                    }.append(tacoResponse.condiment?.name).append(space)
+                    .bold {
+                        append("topped off with").append(space)
+                    }.append(tacoResponse.seasoning?.name).append(space)
+                    .bold {
+                        append("and wrapped in delicious").append(space)
+                    }.append(tacoResponse.shell?.name)
+        }
+    }
     /**
      *  Taco response returned from our API call
      */
@@ -45,30 +70,6 @@ class MainViewModel(private val tacoService: TacoService, private val tacoReposi
         }
 
         return tacoResponse as MutableLiveData<TacoResponse>
-    }
-
-    /**
-     * Given a [TacoResponse], returns a styled [SpannableStringBuilder]
-     *
-     * @param tacoResponse - response object from API
-     */
-    fun getHeadingFromTaco(tacoResponse: TacoResponse): SpannableStringBuilder {
-        val space = " "
-
-        return SpannableStringBuilder()
-                .append(tacoResponse.baseLayer?.name).append(space)
-                .bold {
-                    append("with").append(space)
-                }.append(tacoResponse.mixin?.name).append(space)
-                .bold {
-                    append("garnished with").append(space)
-                }.append(tacoResponse.condiment?.name).append(space)
-                .bold {
-                    append("topped off with").append(space)
-                }.append(tacoResponse.seasoning?.name).append(space)
-                .bold {
-                    append("and wrapped in delicious").append(space)
-                }.append(tacoResponse.shell?.name)
     }
 
     /**

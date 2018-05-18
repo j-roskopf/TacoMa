@@ -49,4 +49,24 @@ data class TacoEntity(
         var base_layer_recipe: String? = null,
         @SerializedName("base_layer_url")
         var base_layer_url: String? = null
-)
+) {
+    /**
+     * Converts a [TacoEntity] to a [TacoResponse]
+     */
+    fun toTacoResponse(): TacoResponse {
+        val shell = Shell(name = shell_name, slug = shell_slug, recipe = shell_recipe, url = shell_url)
+        val seasoning = Seasoning(name = seasoning_name, slug = seasoning_slug, recipe = seasoning_recipe, url = seasoning_url)
+        val mixin = Mixin(name = mixinx_name, slug = mixinx_slug, recipe = mixinx_recipe, url = mixinx_url)
+        val baseLayer = BaseLayer(name = base_layer_name, slug = base_layer_slug, recipe = base_layer_recipe, url = base_layer_url)
+        val condiment = Condiment(name = condiment_name, slug = condiment_slug, recipe = condiment_recipe, url = condiment_url)
+        return TacoResponse(
+                shell = shell,
+                seasoning = seasoning,
+                mixin = mixin,
+                baseLayer = baseLayer,
+                condiment = condiment
+        )
+
+
+    }
+}

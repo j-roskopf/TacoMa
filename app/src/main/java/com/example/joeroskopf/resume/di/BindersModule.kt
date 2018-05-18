@@ -1,6 +1,7 @@
 package com.example.joeroskopf.resume.di
 
 import com.example.joeroskopf.resume.MainActivity
+import com.example.joeroskopf.resume.ui.favorite.FavoritesFragment
 import com.example.joeroskopf.resume.ui.main.MainFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -18,5 +19,6 @@ abstract class BuildersModule {
     @ContributesAndroidInjector
     internal abstract fun bindsMainFragment(): MainFragment
 
-    // Add bindings for other sub-components here
+    @ContributesAndroidInjector
+    internal abstract fun bindsFavoriteFragment(): FavoritesFragment
 }

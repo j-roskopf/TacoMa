@@ -109,7 +109,7 @@ class MainFragment : Fragment() {
      */
     private fun displayResults(tacoResponse: TacoResponse?) {
         tacoResponse?.let {
-            mainFragmentHeadingText.text = viewModel.getHeadingFromTaco(it)
+            mainFragmentHeadingText.text = MainViewModel.getHeadingFromTaco(it)
             mainFragmentBaseLayerText.loadMarkdown(it.baseLayer?.recipe)
             mainFragmentMixinText.loadMarkdown(it.mixin?.recipe)
             mainFragmentCondimentText.loadMarkdown(it.condiment?.recipe)

@@ -5,9 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".ui.favorite.FavoritesFragment">
 
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/favoritesFragmentRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello in fav fragment" />
+        android:layout_height="wrap_content" />
 
 </FrameLayout>
