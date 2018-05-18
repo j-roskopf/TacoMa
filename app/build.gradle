@@ -7,7 +7,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.example.joeroskopf.resume"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -85,8 +85,10 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-rx2:$coroutinesVersion"
 
-    def markdownViewVersion = "1.1.0"
-    implementation "us.feras.mdv:markdownview:$markdownViewVersion"
+    def markdownViewVersion = "1.0.4"
+    implementation "ru.noties:markwon:$markdownViewVersion"
+    compile "ru.noties:markwon-image-loader:$markdownViewVersion"
+    compile "ru.noties:markwon-view:$markdownViewVersion"
 
     def roomVersion = "1.1.0"
     implementation "android.arch.persistence.room:runtime:$roomVersion"
@@ -97,4 +99,7 @@ dependencies {
     def stethoVersion = "1.5.0"
     debugImplementation "com.facebook.stetho:stetho:$stethoVersion"
     implementation "com.facebook.stetho:stetho-okhttp3:$stethoVersion"
+
+    def anko_version='0.10.5'
+    implementation "org.jetbrains.anko:anko-commons:$anko_version"
 }

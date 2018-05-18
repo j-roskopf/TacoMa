@@ -52,10 +52,11 @@
                     android:layout_margin="8dp"
                     android:background="@android:color/black" />
 
-                <us.feras.mdv.MarkdownView
+                <TextView
                     android:id="@+id/mainFragmentBaseLayerText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -63,10 +64,11 @@
                     android:layout_margin="8dp"
                     android:background="@android:color/black" />
 
-                <us.feras.mdv.MarkdownView
+                <TextView
                     android:id="@+id/mainFragmentMixinText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -74,10 +76,11 @@
                     android:layout_margin="8dp"
                     android:background="@android:color/black" />
 
-                <us.feras.mdv.MarkdownView
+                <TextView
                     android:id="@+id/mainFragmentCondimentText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -85,10 +88,11 @@
                     android:layout_margin="8dp"
                     android:background="@android:color/black" />
 
-                <us.feras.mdv.MarkdownView
+                <TextView
                     android:id="@+id/mainFragmentSeasoningText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -96,10 +100,11 @@
                     android:layout_margin="8dp"
                     android:background="@android:color/black" />
 
-                <us.feras.mdv.MarkdownView
+                <TextView
                     android:id="@+id/mainFragmentShellText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp" />
 
             </LinearLayout>
 
