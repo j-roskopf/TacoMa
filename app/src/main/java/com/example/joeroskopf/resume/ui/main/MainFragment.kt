@@ -6,21 +6,22 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
+import android.text.method.LinkMovementMethod
+import android.util.Log
+import android.view.*
+import com.example.joeroskopf.resume.R
+import com.example.joeroskopf.resume.db.TacoRepository
 import com.example.joeroskopf.resume.model.network.TacoResponse
 import com.example.joeroskopf.resume.network.TacoService
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.main_fragment.*
-import javax.inject.Inject
-import com.example.joeroskopf.resume.R
-import android.support.design.widget.Snackbar
-import android.text.method.LinkMovementMethod
-import android.view.*
-import com.example.joeroskopf.resume.db.TacoRepository
 import kotlinx.coroutines.experimental.async
 import org.jetbrains.anko.browse
 import ru.noties.markwon.Markwon
 import ru.noties.markwon.SpannableConfiguration
+import javax.inject.Inject
 
 class MainFragment : Fragment() {
 
@@ -99,7 +100,8 @@ class MainFragment : Fragment() {
     private fun fetchTaco() {
         viewModel.getTacoResponse().observe(activity as LifecycleOwner, Observer<TacoResponse> {
             if (it == null) {
-                //TODO display error snackbar
+                Snackbar.make(mainFragmentBaseLayout, getString(R.string.taco_error), Snackbar.LENGTH_SHORT).show()
+                Log.e("MainFragment","an error occurred while observing the taco")
             } else {
                 showDisplayLayout()
             }
@@ -151,9 +153,9 @@ class MainFragment : Fragment() {
      */
     private fun tacoSavedSuccessfully(saved: Boolean) {
         if (saved) {
-            Snackbar.make(mainFragmentBaseLayout, "Taco saved successfully!", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(mainFragmentBaseLayout, getString(R.string.taco_saved_success), Snackbar.LENGTH_SHORT).show()
         } else {
-            Snackbar.make(mainFragmentBaseLayout, "Removed taco!", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(mainFragmentBaseLayout, getString(R.string.taco_removed_success), Snackbar.LENGTH_SHORT).show()
         }
     }
 
