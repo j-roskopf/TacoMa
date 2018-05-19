@@ -20,7 +20,7 @@ data class TacoResponse(@SerializedName("shell")
     fun toTacoEntity(): TacoEntity {
         //id is concat of shell_slug_seasoning_slug_mixinx_slug_base_layer_slug_condiment_slug
         return TacoEntity(
-                id = "${shell?.slug}_${seasoning?.slug}_${mixin?.slug}_${baseLayer?.slug}_${condiment?.slug}",
+                id = dbId(),
                 shell_name = shell?.name,
                 shell_recipe = shell?.recipe,
                 shell_slug = shell?.slug,
@@ -42,5 +42,9 @@ data class TacoResponse(@SerializedName("shell")
                 condiment_slug = condiment?.slug,
                 condiment_url = condiment?.url
         )
+    }
+
+    fun dbId(): String {
+        return  "${shell?.slug}_${seasoning?.slug}_${mixin?.slug}_${baseLayer?.slug}_${condiment?.slug}"
     }
 }
